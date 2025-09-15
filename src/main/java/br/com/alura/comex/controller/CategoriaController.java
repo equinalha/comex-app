@@ -1,9 +1,9 @@
 package br.com.alura.comex.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +29,13 @@ public class CategoriaController {
     public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestCategoria request, BindingResult result){
 
         if(result.hasErrors()){
-            String mensagem = result.getFieldError().getDefaultMessage();
-            return new ResponseEntity<>(mensagem, HttpStatus.BAD_REQUEST);
+            FieldError fieldError = result.getFieldError();
+            if(fieldError != null){
+                String mensagem = fieldError.getDefaultMessage();
+                return new ResponseEntity<>(mensagem, HttpStatus.BAD_REQUEST);
+            } else {
+                return new ResponseEntity<>("Erro Genérico", HttpStatus.BAD_REQUEST);
+            }
         }
 
         Categoria categoria = request.toCategoria();
