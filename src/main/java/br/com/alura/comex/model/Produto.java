@@ -4,13 +4,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "produtos")
 public class Produto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
     private String descricao;
 
     private double preco;
+    private Long quantidade;
     private List<Categoria> categorias = new ArrayList<>();
 
 
@@ -71,4 +82,14 @@ public class Produto {
                 ", categorias=" + categorias +
                 '}';
     }
+
+    public Long getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Long quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    
 }
