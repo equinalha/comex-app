@@ -3,12 +3,11 @@ package br.com.alura.comex.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,7 +23,7 @@ public class Produto {
     private double preco;
     private Long quantidade;
 
-    @OneToMany
+    @ManyToOne
     private List<Categoria> categorias = new ArrayList<>();
 
 
