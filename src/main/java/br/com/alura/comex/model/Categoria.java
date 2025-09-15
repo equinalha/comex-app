@@ -1,7 +1,5 @@
 package br.com.alura.comex.model;
 
-import java.util.List;
-
 import br.com.alura.comex.service.StatusCategoria;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,7 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,9 +17,6 @@ public class Categoria {
     private Long id;
     
     private String nome;
-
-    @OneToMany(mappedBy = "categorias")
-    private List<Produto> produtos;
 
     @Enumerated(EnumType.STRING)
     private StatusCategoria status = StatusCategoria.ATIVA;

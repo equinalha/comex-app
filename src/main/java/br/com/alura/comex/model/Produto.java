@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,7 +23,7 @@ public class Produto {
     private double preco;
     private Long quantidade;
 
-    @ManyToOne
+    @OneToMany
     private List<Categoria> categorias = new ArrayList<>();
 
 
