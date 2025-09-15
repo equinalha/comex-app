@@ -1,6 +1,9 @@
 package br.com.alura.comex.model;
 
+import br.com.alura.comex.service.StatusCategoria;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,6 +17,9 @@ public class Categoria {
     private Long id;
     
     private String nome;
+
+    @Enumerated(EnumType.STRING)
+    private StatusCategoria status = StatusCategoria.ATIVA;
 
     public Long getId() {
         return id;
@@ -38,4 +44,13 @@ public class Categoria {
                 ", nome='" + nome + '\'' +
                 '}';
     }
+
+    public StatusCategoria getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusCategoria status) {
+        this.status = status;
+    }
+    
 }
