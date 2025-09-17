@@ -1,5 +1,6 @@
 package br.com.alura.comex.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.repository.CategoriaRepository;
-import br.com.alura.comex.service.RequestCategoria;
+import br.com.alura.comex.service.RequestCategoriaDTO;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,16 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/categorias")
 public class CategoriaController {
 
-    // Injeção de dependência
-    private final CategoriaRepository repository;
-
-    public CategoriaController(CategoriaRepository repository) {
-        this.repository = repository;
-    }
-    // Fim - Injeção de dependência
+    @Autowired
+    private CategoriaRepository repository;
 
     @PostMapping
-    public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestCategoria request, BindingResult result){
+    // RequestCategoria -> A anotação @RequesttBody faz com que o objeto RequestCategoriaDTO seja populado com os campos vindos da requisição HTTP
+    public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestCategoriaDTO request, BindingResult result){
 
         if(result.hasErrors()){
             FieldError fieldError = result.getFieldError();

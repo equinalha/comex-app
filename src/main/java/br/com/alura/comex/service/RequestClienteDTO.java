@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public class RequestCliente {
+public class RequestClienteDTO {
     @NotNull(message = "O nome não pode ser nulo")
     @NotBlank(message = "O nome não pode estar em branco.")
     @Length(min = 2, message = "O nome deve ter no mínimo 2 caracteres.")

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.repository.ProdutoRepository;
-import br.com.alura.comex.service.RequestProduto;
+import br.com.alura.comex.service.RequestProdutoDTO;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestProduto request, BindingResult result) {
+    public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestProdutoDTO request, BindingResult result) {
 
         if(result.hasErrors()){
             FieldError fieldError = result.getFieldError();

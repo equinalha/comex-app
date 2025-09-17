@@ -5,7 +5,7 @@ import br.com.alura.comex.model.Categoria;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class RequestCategoria {
+public class RequestCategoriaDTO {
 
     @NotNull
     @NotBlank(message = "O nome não pode estar em branco.")

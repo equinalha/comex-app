@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.comex.repository.ClienteRepository;
 import br.com.alura.comex.model.Cliente;
-import br.com.alura.comex.service.RequestCliente;
+import br.com.alura.comex.service.RequestClienteDTO;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestCliente request, BindingResult result) {
+    public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestClienteDTO request, BindingResult result) {
         
         if(result.hasErrors()){
             FieldError fieldError = result.getFieldError();
