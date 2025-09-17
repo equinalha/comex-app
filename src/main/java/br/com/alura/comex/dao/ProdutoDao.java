@@ -28,8 +28,7 @@ public class ProdutoDao {
             comando.execute();
             Long idGerado = DatabaseUtils.recuperaIdGerado(comando);
             produto.setId(idGerado);
-
-            insereCategoriasProduto(produto);
+            
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao salvar produto.", e);
         }
@@ -45,10 +44,6 @@ public class ProdutoDao {
             comando.setLong(4, produto.getId());
 
             comando.execute();
-
-            // Atualiza as categorias associadas ao produto
-            excluiCategoriasProduto(produto);
-            insereCategoriasProduto(produto);
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar produto.", e);
         }
@@ -89,13 +84,6 @@ public class ProdutoDao {
                     produto = montaProduto(resultSet);
                     produtos.add(produto);
                 }
-
-                Long categoriaId = resultSet.getLong("categoria.id");
-                if (!resultSet.wasNull()) {
-                    Categoria categoria = monta(categoriaId, resultSet);
-
-                    produto.adicionaCategoria(categoria);
-                }
             }
 
             comando.close();
@@ -113,55 +101,6 @@ public class ProdutoDao {
             comando.execute();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao excluir categorias do produto.", e);
-        }
-    }
-
-    private void insereCategoriasProduto(Produto produto) {
-        String sql = "insert into categoria_produto (produto_id, categoria_id) values (?, ?)";
-
-        try (PreparedStatement comando = conexao.prepareStatement(sql)) {;
-
-            for (Categoria categoria : produto.getCategorias()) {
-                comando.setLong(1, produto.getId());
-                comando.setLong(2, categoria.getId());
-                comando.execute();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao salvar categorias do produto.", e);
-        }
-    }
-
-    public Produto consulta(long id) {
-        String sql = """
-                select produto.*, categoria.*
-                  from produto
-                  left join categoria_produto on produto.id = categoria_produto.produto_id
-                  left join categoria on categoria_produto.categoria_id = categoria.id
-                 where produto.id = ?""";
-
-        try (PreparedStatement comando = conexao.prepareStatement(sql)) {
-            comando.setLong(1, id);
-            ResultSet resultSet = comando.executeQuery();
-
-            Produto produto = null;
-
-            while (resultSet.next()) {
-                if (produto == null) {
-                    produto = montaProduto(resultSet);
-                }
-
-                Long categoriaId = resultSet.getLong("categoria.id");
-                if (!resultSet.wasNull()) {
-                    Categoria categoria = monta(categoriaId, resultSet);
-
-                    produto.adicionaCategoria(categoria);
-                }
-            }
-
-            comando.close();
-            return produto;
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao consultar produto.", e);
         }
     }
 

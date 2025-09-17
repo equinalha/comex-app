@@ -1,13 +1,10 @@
 package br.com.alura.comex.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,9 +20,8 @@ public class Produto {
     private double preco;
     private Long quantidade;
 
-    @OneToMany
-    private List<Categoria> categorias = new ArrayList<>();
-
+    @OneToOne
+    private Categoria categoria;
 
     public Long getId() {
         return id;
@@ -59,21 +55,6 @@ public class Produto {
         this.preco = preco;
     }
 
-    public List<Categoria> getCategorias() {
-        return Collections.unmodifiableList(categorias);
-    }
-
-    public void adicionaCategoria(Categoria categoria) {
-        // verifica se a categoria já foi adicionada com base no id
-        for (Categoria categoriaDaLista : categorias) {
-            if (categoriaDaLista.getId().equals(categoria.getId())) {
-                return;
-            }
-        }
-
-        this.categorias.add(categoria);
-    }
-
     @Override
     public String toString() {
         return "Produto{" +
@@ -81,7 +62,7 @@ public class Produto {
                 ", nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", preco=" + preco +
-                ", categorias=" + categorias +
+                ", categoria=" + categoria +
                 '}';
     }
 
