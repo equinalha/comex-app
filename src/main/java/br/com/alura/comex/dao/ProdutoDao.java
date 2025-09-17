@@ -2,7 +2,6 @@ package br.com.alura.comex.dao;
 
 import br.com.alura.comex.db.ConnectionFactory;
 import br.com.alura.comex.db.DatabaseUtils;
-import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.Produto;
 
 import java.sql.*;
@@ -102,14 +101,6 @@ public class ProdutoDao {
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao excluir categorias do produto.", e);
         }
-    }
-
-    private Categoria monta(Long categoriaId, ResultSet resultSet) throws SQLException {
-        Categoria categoria = new Categoria();
-        categoria.setId(categoriaId);
-        categoria.setNome(resultSet.getString("categoria.nome"));
-
-        return categoria;
     }
 
     private Produto montaProduto(ResultSet resultSet) throws SQLException {
