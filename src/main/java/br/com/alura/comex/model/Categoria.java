@@ -1,6 +1,7 @@
 package br.com.alura.comex.model;
 
 import br.com.alura.comex.service.EnumStatusCategoria;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -16,6 +17,7 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(unique = true)
     private String nome;
 
     @Enumerated(EnumType.STRING)
