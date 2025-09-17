@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/categorias")
 public class CategoriaController {
 
+    // Injeção de dependência
     private final CategoriaRepository repository;
 
     public CategoriaController(CategoriaRepository repository) {
         this.repository = repository;
     }
+    // Fim - Injeção de dependência
 
     @PostMapping
     public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestCategoria request, BindingResult result){
