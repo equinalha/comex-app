@@ -1,19 +1,19 @@
 package br.com.alura.comex.service;
 
+import org.hibernate.validator.constraints.Length;
 import br.com.alura.comex.model.Produto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Positive;
 
 public class RequestProduto {
     @NotNull(message = "O nome não pode ser nulo")
     @NotBlank(message = "O nome não pode estar em branco.")
-    @Size(min = 2, message = "O nome deve ter no mínimo 2 caracteres.")
+    @Length(min = 2, message = "O nome deve ter no mínimo 2 caracteres.")
     private String nome;
     
     @NotNull(message = "O preco não pode ser nulo")
-    @PositiveOrZero(message = "O preço não pode ser negativo.")
+    @Positive(message = "O preço não pode ser negativo.")
     private Double preco;
 
     private String descricao;
