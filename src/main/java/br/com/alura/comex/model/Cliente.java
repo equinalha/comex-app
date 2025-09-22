@@ -1,9 +1,12 @@
 package br.com.alura.comex.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Cliente {
@@ -11,7 +14,6 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String cpf;
     private String nome;
     private String email;
@@ -21,6 +23,9 @@ public class Cliente {
     private String cidade;
     private String estado;
     private String cep;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private Usuario usuario;
 
     public Long getId() {
         return id;
@@ -102,6 +107,8 @@ public class Cliente {
         this.cep = cep;
     }
 
+    
+
     @Override
     public String toString() {
         return "Cliente{" +
@@ -116,5 +123,13 @@ public class Cliente {
                 ", estado='" + estado + '\'' +
                 ", cep='" + cep + '\'' +
                 '}';
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
