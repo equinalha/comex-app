@@ -1,5 +1,8 @@
 package br.com.alura.comex.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,8 @@ import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.service.RequestCategoriaDTO;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/categorias")
@@ -24,12 +28,13 @@ public class CategoriaController {
     private CategoriaRepository repository;
 
     @PostMapping
-    // RequestCategoria -> A anotação @RequesttBody faz com que o objeto RequestCategoriaDTO seja populado com os campos vindos da requisição HTTP
-    public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestCategoriaDTO request, BindingResult result){
+    // RequestCategoria -> A anotação @RequesttBody faz com que o objeto
+    // RequestCategoriaDTO seja populado com os campos vindos da requisição HTTP
+    public ResponseEntity<Object> cadastrar(@RequestBody @Valid RequestCategoriaDTO request, BindingResult result) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             FieldError fieldError = result.getFieldError();
-            if(fieldError != null){
+            if (fieldError != null) {
                 String mensagem = fieldError.getDefaultMessage();
                 return new ResponseEntity<>(mensagem, HttpStatus.BAD_REQUEST);
             } else {
@@ -41,4 +46,11 @@ public class CategoriaController {
         repository.save(categoria);
         return new ResponseEntity<>(categoria, HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<List<Categoria>> listarTodas() {
+        List<Categoria> categorias = repository.findAll();
+        return ResponseEntity.ok(categorias);
+    }
+
 }

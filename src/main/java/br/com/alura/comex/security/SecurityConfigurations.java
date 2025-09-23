@@ -32,6 +32,8 @@ public class SecurityConfigurations {
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers(HttpMethod.POST, "/login").permitAll()
                             .requestMatchers(HttpMethod.POST, "/login/init").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/categorias").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/produtos").permitAll()
                             .anyRequest().authenticated()
                     )
                     .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
