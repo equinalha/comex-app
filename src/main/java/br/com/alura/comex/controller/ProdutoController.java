@@ -3,7 +3,6 @@ package br.com.alura.comex.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.comex.model.Categoria;
 import br.com.alura.comex.model.Produto;
 import br.com.alura.comex.repository.ProdutoRepository;
 import br.com.alura.comex.service.RequestProdutoDTO;
